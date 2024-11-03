@@ -5,9 +5,11 @@ import Link from "next/link";
 import { deleteHaiku } from "../actions/haikuController";
 
 function Haiku(props) {
+
     if(!props.haiku.photo){
-        props.haiku.photo = "sample/fallback"
+      props.haiku.photo = "https://res.cloudinary.com/dvgladhfz/image/upload/v1730442167/c_lubwh6.jpg"
     }
+
   return (
     <div className="relative rounded-xl overflow-hidden max-w-[650px] mx-auto mb-7">
         <img src="/aspect-ratio.png" />
