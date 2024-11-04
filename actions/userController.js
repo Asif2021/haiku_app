@@ -35,7 +35,7 @@ export const login = async function (prevState, formData) {
     return failObject
   }
   
-  //create jwt value 
+  //create json web token (jwt) value 
   const ourTokenValue = jwt.sign(
     {
       skyColor: "blue",

@@ -129,11 +129,7 @@ function HaikuForm(props) {
         <input type="hidden" name="public_id" value={public_id} />
         <input type="hidden" name="version" value={version} />
         <input type="hidden" name="signature" value={signature} />
-        <input
-          type="hidden"
-          name="haikuId"
-          defaultValue={props.haiku?._id.toString()}
-        />
+        <input type="hidden" name="haikuId" defaultValue={props.haiku?._id.toString()}/>
         <button className="btn btn-primary">Submit</button>
       </form>
     </>

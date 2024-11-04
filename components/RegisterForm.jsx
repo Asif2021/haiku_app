@@ -63,7 +63,7 @@ function RegisterForm() {
             </div>
           )}
         </div>
-        <button className="btn btn-primary">Create Account</button>
+        <button className="btn btn-primary uppercase">Create Account</button>
       </form>
     </>
   );

@@ -10,7 +10,7 @@ async function Header() {
         <div className="container mx-auto">
           <div className="navbar">
             <div className="flex-1">
-              <Link href="/" className="btn btn-ghost text-xl">
+              <Link href="/" className="btn btn-ghost text-xl uppercase ">
                 Our Haiku App
               </Link>
             </div>
@@ -19,18 +19,18 @@ async function Header() {
                 {user && (
                   <>
                   <li className="mr-3">
-                    <Link href="/create-haiku" className="btn btn-primary">Create Haiku</Link>
+                    <Link href="/create-haiku" className="btn btn-primary uppercase">Create Haiku</Link>
                   </li>
                   <li>
                     <form action={logout} className="btn btn-neutral">
-                      <button>Log Out</button>
+                      <button className="uppercase">Log Out</button>
                     </form>
                   </li>
                   </>
                 )}
                 {!user && (
                   <li>
-                    <Link href="/login">Login</Link>
+                    <Link href="/login" className="uppercase">Login</Link>
                   </li>
                 )}
               </ul>

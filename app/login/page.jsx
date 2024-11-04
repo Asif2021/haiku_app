@@ -48,7 +48,7 @@ function page() {
           />
         
         </div>
-        <button className="btn btn-primary">Submit</button>
+        <button className="btn btn-primary uppercase">Submit</button>
       </form>
     </>
   )

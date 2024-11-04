@@ -5,17 +5,20 @@ import Link from "next/link";
 import { deleteHaiku } from "../actions/haikuController";
 
 function Haiku(props) {
-
+//setting default image for haiku
     if(!props.haiku.photo){
-      props.haiku.photo = "https://res.cloudinary.com/dvgladhfz/image/upload/v1730442167/c_lubwh6.jpg"
+      props.haiku.photo = "https://res.cloudinary.com/dvgladhfz/image/upload/v1730442167/c_lubwh6.jpg" // image path
     }
 
   return (
     <div className="relative rounded-xl overflow-hidden max-w-[650px] mx-auto mb-7">
         <img src="/aspect-ratio.png" />
-        <div className="absolute inset-0 bg-gray-200 grid">
+        <div className="absolute inset-0 bg-gray-200 grid"> 
+          {/* Set Loading spinner */}
             <span className="loading loading-dots loading-lg m-auto"></span>
         </div>
+
+      {/* CldImage from Cloudinary   */}
       <CldImage
         className="absolute inset-0"
         width="650"
@@ -25,6 +28,7 @@ function Haiku(props) {
         sizes="650px"
         src={props.haiku.photo}
         alt="Description of my image"
+        // Setting text on the Cloudinary Image
         overlays={[
           {
             position: { x: 30, y: 150, angle: -10, gravity: "north_west" },
@@ -52,14 +56,12 @@ function Haiku(props) {
       <div className="absolute bottom-2 right-2 flex">
         <Link
           className="block mr-1 bg-black/40 hover:bg-black/50 p-1 text-white/60 hover:text-white/80 rounded"
-          href={`/edit-haiku/${props.haiku._id.toString()}`}
-        >
+          href={`/edit-haiku/${props.haiku._id.toString()}`}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 16 16"
             fill="currentColor"
-            className="size-6"
-          >
+            className="size-6">
             <path
               fillRule="evenodd"
               d="M11.013 2.513a1.75 1.75 0 0 1 2.475 2.474L6.226 12.25a2.751 2.751 0 0 1-.892.596l-2.047.848a.75.75 0 0 1-.98-.98l.848-2.047a2.75 2.75 0 0 1 .596-.892l7.262-7.261Z"
