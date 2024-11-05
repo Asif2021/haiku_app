@@ -3,6 +3,7 @@
 
 import { useFormState } from "react-dom";
 import { login } from "../../actions/userController";
+import Link from "next/link";
 
 function page() {
   const [formState, formAction] = useFormState(login, {});
@@ -48,7 +49,10 @@ function page() {
           />
         
         </div>
-        <button className="btn btn-primary uppercase">Submit</button>
+        <button className="btn btn-primary uppercase mb-10">Submit</button>
+        <p className="text-xl text-gray-600 mb-5">
+            Don&rsquo;t have an account ? <strong> <Link href="/">Create Now</Link></strong>
+          </p>
       </form>
     </>
   )

@@ -20,9 +20,6 @@ function isAlphaNumericWithBasics(text){
 
 
 async function sharedHaikuLogic(formData, user) {
-  // console.log(formData.get("signature"))
-  // console.log(formData.get("public_id"))
-  // console.log(formData.get("version"))
   const errors = {};
 
   const ourHaiku = {

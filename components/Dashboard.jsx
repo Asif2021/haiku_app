@@ -1,6 +1,7 @@
 import { ObjectId } from "mongodb";
 import { getCollection } from "../lib/db";
 import Haiku from "./Haiku";
+import Link from "next/link";
 
 async function getHaikus(id) {
   const collection = await getCollection("haikus");
@@ -18,12 +19,20 @@ async function Dashboard(props) {
       <h2 className="text-center text-gray-600 text-2xl mb-5 font-bold uppercase">
         Your Haikus
       </h2>
-
-      {haikus.map((haiku, index) => {
-        haiku._id = haiku._id.toString();
-        haiku.author = haiku.author.toString();
-        return <Haiku haiku={haiku} key={index} />;
-      })}
+      {haikus.length == 0 ? (
+        <h2 className="text-center text-gray-600 text-2xl capitalize">
+          You have not created any haiku yet, <strong>create One</strong> <br />
+          <Link href="/create-haiku" className="btn btn-primary uppercase mt-5">
+            Create Haiku
+          </Link>
+        </h2>
+      ) : (
+        haikus.map((haiku, index) => {
+          haiku._id = haiku._id.toString();
+          haiku.author = haiku.author.toString();
+          return <Haiku haiku={haiku} key={index} />;
+        })
+      )}
     </div>
   );
 }

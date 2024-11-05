@@ -58,7 +58,7 @@ export const login = async function (prevState, formData) {
 
 export const logout = async function () {
   cookies().delete("ourHaikuApp");
-  redirect("/");
+  redirect("/login");
 };
 
 export const register = async function (prevState, formData) {
