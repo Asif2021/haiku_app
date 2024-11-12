@@ -20,9 +20,12 @@ export const login = async function (prevState, formData) {
   const ourUser = {
     username: formData.get("username"),
     password: formData.get("password"),
+    confirmPassword: formData.get("confirmPassword"),
+
   };
   if (typeof ourUser.username != "string") ourUser.username = "";
   if (typeof ourUser.password != "string") ourUser.password = "";
+  if (typeof ourUser.confirmPassword != "string") ourUser.confirmPassword = "";
 
   const collection = await getCollection("users")
   const user = await collection.findOne({username:ourUser.username})
@@ -67,12 +70,17 @@ export const register = async function (prevState, formData) {
   const ourUser = {
     username: formData.get("username"),
     password: formData.get("password"),
+    confirmPassword: formData.get("confirmPassword"),
+
   };
   if (typeof ourUser.username != "string") ourUser.username = "";
   if (typeof ourUser.password != "string") ourUser.password = "";
+  if (typeof ourUser.confirmPassword != "string") ourUser.confirmPassword = "";
+
 
   ourUser.username = ourUser.username.trim();
   ourUser.password = ourUser.password.trim();
+  ourUser.confirmPassword = ourUser.confirmPassword.trim();
 
   if (ourUser.username.length < 3)
     errors.username = "username must be at least three characters";
@@ -97,8 +105,9 @@ if (usernameInQuestion){
     errors.password = "Password must not be exceed 30 characters";
   if (ourUser.password == "")
     errors.password = "You must provide a valid Password";
+  if(ourUser.confirmPassword !== ourUser.password) errors.confirmPassword = "Password do not match"
 
-  if (errors.username || errors.password) {
+  if (errors.username || errors.password || errors.confirmPassword) {
     return {
       errors: errors,
       success: false,
