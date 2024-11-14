@@ -1,11 +1,12 @@
 "use client";
 import { useFormState, useFormStatus } from "react-dom";
 import { register } from "../actions/userController";
+import { useState } from "react";
 
 function RegisterForm() {
   const [formState, formAction] = useFormState(register, {});
+  const [show, setShow] = useState(false);
 
-  console.log(formState);
   return (
     <>
       <form action={formAction} className="max-w-sm mx-auto">
@@ -40,7 +41,7 @@ function RegisterForm() {
           <input
             name="password"
             autoComplete="off"
-            type="password"
+            type={show ? "text" : 'password'}
             placeholder="Password"
             className="input input-bordered w-full max-w-sm mb-2"
           />
@@ -67,7 +68,7 @@ function RegisterForm() {
           <input
             name="confirmPassword"
             autoComplete="off"
-            type="password"
+            type={show ? "text" : 'password'}
             placeholder="Confirm Password"
             className="input input-bordered w-full max-w-sm mb-2"
           />
@@ -89,6 +90,10 @@ function RegisterForm() {
               <span>{formState.errors?.confirmPassword}</span>
             </div>
           )}
+        </div>
+        <div className="mb-3">
+          <input type="checkbox" onClick={()=>setShow(!show)} />
+          <span className="ml-2 text-gray-500">Show Password</span>
         </div>
         <button className="btn btn-primary uppercase">Create Account</button>
       </form>

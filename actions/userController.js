@@ -11,59 +11,6 @@ function isAlphaNumeric(x) {
   return regex.test(x);
 }
 
-export const login = async function (prevState, formData) {
-  const failObject = {
-    success:false,
-    message:"Invalid username / password"
-  }
-
-  const ourUser = {
-    username: formData.get("username"),
-    password: formData.get("password"),
-    confirmPassword: formData.get("confirmPassword"),
-
-  };
-  if (typeof ourUser.username != "string") ourUser.username = "";
-  if (typeof ourUser.password != "string") ourUser.password = "";
-  if (typeof ourUser.confirmPassword != "string") ourUser.confirmPassword = "";
-
-  const collection = await getCollection("users")
-  const user = await collection.findOne({username:ourUser.username})
-  if(!user){
-    return failObject
-  }
-
-  const matchOrNot = bcrypt.compareSync(ourUser.password, user.password)
-  if(!matchOrNot){
-    return failObject
-  }
-  
-  //create json web token (jwt) value 
-  const ourTokenValue = jwt.sign(
-    {
-      skyColor: "blue",
-      userId: user._id,
-      exp: Math.floor(Date.now() / 1000) + 60 * 60 * 24,
-    },
-    process.env.JWTSECRET
-  );
-
-  //log the user in by giving them a cookie.
-  cookies().set("ourHaikuApp", ourTokenValue, {
-    httpOnly: true,
-    sameSite: "strict",
-    maxAge: 60 * 60 * 24,
-    secure: true,
-  });
- return redirect("/")
-
-};
-
-export const logout = async function () {
-  cookies().delete("ourHaikuApp");
-  redirect("/login");
-};
-
 export const register = async function (prevState, formData) {
   const errors = {};
 
@@ -97,7 +44,6 @@ const usernameInQuestion = await usersCollection.findOne({username:ourUser.usern
 if (usernameInQuestion){
   errors.username = "That username is already in use."
 }
-
 
   if (ourUser.password.length < 6)
     errors.password = "Password must be at least six characters";
@@ -144,3 +90,53 @@ if (usernameInQuestion){
     success: true,
   };
 };
+
+export const login = async function (prevState, formData) {
+  const failObject = {
+    success:false,
+    message:"Invalid username / password"
+  }
+
+  const ourUser = {
+    username: formData.get("username"),
+    password: formData.get("password")};
+  if (typeof ourUser.username != "string") ourUser.username = "";
+  if (typeof ourUser.password != "string") ourUser.password = "";
+
+  const collection = await getCollection("users")
+  const user = await collection.findOne({username:ourUser.username})
+  if(!user){
+    return failObject}
+
+  const matchOrNot = bcrypt.compareSync(ourUser.password, user.password)
+  if(!matchOrNot){
+    return failObject
+  }
+  
+  //create json web token (jwt) value 
+  const ourTokenValue = jwt.sign(
+    {
+      skyColor: "blue",
+      userId: user._id,
+      exp: Math.floor(Date.now() / 1000) + 60 * 60 * 24,
+    },
+    process.env.JWTSECRET
+  );
+
+  //log the user in by giving them a cookie.
+  cookies().set("ourHaikuApp", ourTokenValue, {
+    httpOnly: true,
+    sameSite: "strict",
+    maxAge: 60 * 60 * 24,
+    secure: true,
+  });
+ return redirect("/")
+
+};
+
+export const logout = async function () {
+  cookies().delete("ourHaikuApp");
+  redirect("/login");
+};
+
+
