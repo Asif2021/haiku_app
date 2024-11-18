@@ -18,7 +18,6 @@ export const register = async function (prevState, formData) {
     username: formData.get("username"),
     password: formData.get("password"),
     confirmPassword: formData.get("confirmPassword"),
-
   };
   if (typeof ourUser.username != "string") ourUser.username = "";
   if (typeof ourUser.password != "string") ourUser.password = "";
@@ -63,6 +62,7 @@ if (usernameInQuestion){
   //hash password first
   const salt = bcrypt.genSaltSync(10);
   ourUser.password = bcrypt.hashSync(ourUser.password, salt);
+  ourUser.confirmPassword = bcrypt.hashSync(ourUser.confirmPassword, salt);
 
   // storing a new user in the database.
   const newUser = await usersCollection.insertOne(ourUser);
@@ -118,6 +118,7 @@ export const login = async function (prevState, formData) {
     {
       skyColor: "blue",
       userId: user._id,
+      username: user.username,
       exp: Math.floor(Date.now() / 1000) + 60 * 60 * 24,
     },
     process.env.JWTSECRET

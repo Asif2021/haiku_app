@@ -4,6 +4,7 @@ import Dashboard from "../components/Dashboard";
 
 async function page() {
   const user = await getUserFromCookie();
+  
   return (
     <>
       {user && <Dashboard user={user} />}

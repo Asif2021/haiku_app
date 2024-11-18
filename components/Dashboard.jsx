@@ -2,6 +2,8 @@ import { ObjectId } from "mongodb";
 import { getCollection } from "../lib/db";
 import Haiku from "./Haiku";
 import Link from "next/link";
+import { getUserFromCookie } from "@/lib/getUser"
+
 
 async function getHaikus(id) {
   const collection = await getCollection("haikus");
@@ -13,11 +15,14 @@ async function getHaikus(id) {
 }
 
 async function Dashboard(props) {
-  const haikus = await getHaikus(props.user.userId);
+    const haikus = await getHaikus(props.user.userId);
+    const user = await getUserFromCookie();
+    console.log(user)
+
   return (
     <div>
-      <h2 className="text-center text-gray-600 text-2xl mb-5 font-bold uppercase">
-        Your Haikus
+      <h2 className="text-center text-gray-600 text-2xl mb-5 capitalize">
+       Here are Your Haikus, <strong className="uppercase"> dear {user.username}</strong>
       </h2>
       {haikus.length == 0 ? (
         <h2 className="text-center text-gray-600 text-2xl capitalize">
