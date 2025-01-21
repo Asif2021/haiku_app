@@ -71,7 +71,7 @@ if (usernameInQuestion){
   //create our JWT value
   const ourTokenValue = jwt.sign(
     {
-      skyColor: "blue",
+      skyColor: "red",
       userId: userId,
       exp: Math.floor(Date.now() / 1000) + 60 * 60 * 24,
     },
@@ -116,7 +116,7 @@ export const login = async function (prevState, formData) {
   //create json web token (jwt) value 
   const ourTokenValue = jwt.sign(
     {
-      skyColor: "blue",
+      skyColor: "green",
       userId: user._id,
       username: user.username,
       exp: Math.floor(Date.now() / 1000) + 60 * 60 * 24,

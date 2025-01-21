@@ -17,8 +17,7 @@ async function getHaikus(id) {
 async function Dashboard(props) {
     const haikus = await getHaikus(props.user.userId);
     const user = await getUserFromCookie();
-    console.log(user)
-
+    
   return (
     <div>
       <h2 className="text-center text-gray-600 text-2xl mb-5 capitalize">
